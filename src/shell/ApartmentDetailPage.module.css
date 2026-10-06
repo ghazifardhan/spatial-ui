@@ -1,0 +1,228 @@
+/* Unit detail sidebar (ADR 0050, 0051). */
+
+.page {
+  display: flex;
+  height: 100%;
+  min-height: 0;
+}
+
+.canvasWrap {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+.aside {
+  width: var(--sidebar-right-width);
+  flex-shrink: 0;
+  background: linear-gradient(180deg, var(--color-surface-1), var(--color-bg));
+  border-left: 1px solid var(--color-border);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: var(--space-5) var(--space-5) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(10px);
+  z-index: 5;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.76rem;
+  color: var(--color-text-faint);
+  margin-bottom: var(--space-3);
+}
+
+.breadcrumb a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+.breadcrumb a:hover {
+  color: var(--color-accent-strong);
+}
+
+.title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-3);
+}
+
+.priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.priceAmount {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.priceUnit {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+.body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.sectionLabel {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--color-text-faint);
+  font-weight: 600;
+  margin-bottom: var(--space-3);
+}
+
+/* ---- Room list ---- */
+
+.roomList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.roomCard {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-2);
+  color: inherit;
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.roomCard:hover {
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-3);
+  transform: translateX(2px);
+}
+
+.roomCardActive {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.roomSwatch {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-3);
+  display: grid;
+  place-items: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.roomName {
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.roomDims {
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.hint {
+  font-size: 0.78rem;
+  color: var(--color-text-faint);
+  line-height: 1.5;
+}
+
+/* ---- Booking section ---- */
+
+.booking {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-5);
+}
+
+/* ---- Skeleton ---- */
+
+.skeletonWrap {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--color-bg);
+}
+
+.shimmer {
+  width: min(420px, 70%);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.shimmerBar {
+  height: 14px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-2) 25%,
+    var(--color-surface-3) 37%,
+    var(--color-surface-2) 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+.shimmerBar:nth-child(1) {
+  width: 60%;
+  height: 20px;
+}
+.shimmerBar:nth-child(2) {
+  width: 85%;
+}
+.shimmerBar:nth-child(3) {
+  width: 45%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.notFound {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.notFound a {
+  color: var(--color-accent-strong);
+}

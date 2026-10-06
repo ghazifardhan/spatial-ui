@@ -1,0 +1,62 @@
+/* Ceiling toggle overlay chip (ADR 0048, 0050). Positioned inside the viewer's passthrough
+   overlay layer, so it anchors itself (top-right). */
+
+.chip {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: var(--color-surface-glass);
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-md);
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.chip:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-accent);
+}
+
+.track {
+  width: 32px;
+  height: 17px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-3);
+  position: relative;
+  transition: background var(--transition-base);
+  flex-shrink: 0;
+}
+
+.trackOn {
+  background: var(--color-accent);
+}
+
+.knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  transition: left var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.knobOn {
+  left: 17px;
+}
