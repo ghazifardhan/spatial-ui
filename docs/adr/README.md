@@ -79,3 +79,5 @@ What becomes easier, harder, or constrained as a result?
 | [0050](0050-dark-elegant-theme.md) | Dark-elegant shell theme | Accepted |
 | [0051](0051-sidebar-ux-additions.md) | Sidebar UX additions: room list, price summary, breadcrumb, skeleton | Accepted |
 | [0052](0052-in-viewer-navigation-ui.md) | In-viewer navigation UI: imperative zoom/pan/orbit controls + how-to legend | Accepted |
+| [0053](0053-light-dark-theme-toggle.md) | Light/dark theme toggle: token overrides + persisted, OS-aware default | Accepted |
+| [0054](0054-ui-iconography-lucide.md) | UI iconography: lucide-react instead of emoji glyphs | Accepted |

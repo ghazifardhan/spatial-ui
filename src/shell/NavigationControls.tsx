@@ -10,6 +10,17 @@
  */
 
 import type { RefObject } from 'react'
+import {
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
+  Minus,
+  Move,
+  Mouse,
+  Plus,
+  RotateCcw,
+} from 'lucide-react'
 import type { ViewerHandle } from '../viewer'
 import styles from './NavigationControls.module.css'
 
@@ -32,34 +43,30 @@ export function NavigationControls({ viewerRef, showLegend = true }: NavigationC
       <div className={styles.cluster} role="group" aria-label="3D navigation">
         <div className={styles.pad}>
           <NavButton label="Orbit up" onClick={call((v) => v.orbitBy(0, -1))}>
-            <Chevron dir="up" />
+            <ChevronUp size={14} strokeWidth={2.4} />
           </NavButton>
           <div className={styles.padMiddle}>
             <NavButton label="Pan left" onClick={call((v) => v.panBy(-0.12, 0))}>
-              <Chevron dir="left" />
+              <ChevronLeft size={14} strokeWidth={2.4} />
             </NavButton>
-            <NavButton
-              label="Reset view"
-              onClick={call((v) => v.resetView())}
-              variant="center"
-            >
-              <span aria-hidden>⟲</span>
+            <NavButton label="Reset view" onClick={call((v) => v.resetView())} variant="center">
+              <RotateCcw size={15} strokeWidth={2.2} />
             </NavButton>
             <NavButton label="Pan right" onClick={call((v) => v.panBy(0.12, 0))}>
-              <Chevron dir="right" />
+              <ChevronRight size={14} strokeWidth={2.4} />
             </NavButton>
           </div>
           <NavButton label="Orbit down" onClick={call((v) => v.orbitBy(0, 1))}>
-            <Chevron dir="down" />
+            <ChevronDown size={14} strokeWidth={2.4} />
           </NavButton>
         </div>
 
         <div className={styles.zoomColumn} role="group" aria-label="Zoom">
           <NavButton label="Zoom in" onClick={call((v) => v.zoomBy(1))}>
-            <span aria-hidden>＋</span>
+            <Plus size={15} strokeWidth={2.4} />
           </NavButton>
           <NavButton label="Zoom out" onClick={call((v) => v.zoomBy(-1))}>
-            <span aria-hidden>－</span>
+            <Minus size={15} strokeWidth={2.4} />
           </NavButton>
         </div>
       </div>
@@ -96,73 +103,15 @@ function NavigationLegend() {
   return (
     <div className={styles.legend} aria-label="How to navigate">
       <span className={styles.legendItem}>
-        <DragIcon /> Drag to orbit
+        <Move size={13} strokeWidth={1.8} aria-hidden /> Drag to orbit
       </span>
       <span className={styles.legendItem}>
-        <ScrollIcon /> Scroll to zoom
+        <Mouse size={13} strokeWidth={1.8} aria-hidden /> Scroll to zoom
       </span>
       <span className={styles.legendItem}>
-        <span className={styles.key}>⇧</span>
+        <span className={styles.key}>Shift</span>
         <span className={styles.key}>Drag</span> / right-drag to pan
       </span>
     </div>
-  )
-}
-
-type Dir = 'up' | 'down' | 'left' | 'right'
-
-/** A tiny chevron drawn as an inline SVG rotated per direction. */
-function Chevron({ dir }: { dir: Dir }) {
-  const rotation: Record<Dir, number> = { up: 0, right: 90, down: 180, left: 270 }
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width="14"
-      height="14"
-      aria-hidden
-      style={{ transform: `rotate(${rotation[dir]}deg)` }}
-    >
-      <path
-        d="M6 15l6-6 6 6"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
-function DragIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden>
-      <path
-        d="M12 3v18M3 12h18"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-      <circle cx="12" cy="12" r="2.6" fill="none" stroke="currentColor" strokeWidth="1.6" />
-    </svg>
-  )
-}
-
-function ScrollIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden>
-      <rect
-        x="8"
-        y="3"
-        width="8"
-        height="18"
-        rx="4"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-      <path d="M12 7v3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
   )
 }

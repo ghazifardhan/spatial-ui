@@ -12,6 +12,7 @@
 
 import { Suspense, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { ArrowLeft, Bath, BedDouble, CookingPot, LayoutGrid, Sofa } from 'lucide-react'
 import type { Apartment, Room } from '../domain'
 import { BookingPanel } from '../booking-flow'
 import { useRepositories } from './use-repositories'
@@ -39,7 +40,11 @@ function NotFound() {
   return (
     <div className={styles.notFound}>
       <p>Apartment not found.</p>
-      <Link to="/">← Back to all apartments</Link>
+      <p>
+        <Link to="/">
+          <ArrowLeft size={14} aria-hidden /> Back to all apartments
+        </Link>
+      </p>
     </div>
   )
 }
@@ -139,7 +144,7 @@ function RoomCard({
       className={active ? `${styles.roomCard} ${styles.roomCardActive}` : styles.roomCard}
     >
       <span className={styles.roomSwatch} aria-hidden>
-        {roomIcon(room)}
+        <RoomIcon room={room} />
       </span>
       <span>
         <span className={styles.roomName}>{room.name}</span>
@@ -152,13 +157,14 @@ function RoomCard({
 }
 
 /** A small glyph hint per room name; falls back to a neutral marker. */
-function roomIcon(room: Room): string {
+function RoomIcon({ room }: { room: Room }) {
   const name = room.name.toLowerCase()
-  if (name.includes('bath')) return '🛁'
-  if (name.includes('bed')) return '🛏️'
-  if (name.includes('kitchen')) return '🍳'
-  if (name.includes('living') || name.includes('sleep')) return '🛋️'
-  return '▦'
+  const props = { size: 16, strokeWidth: 1.9 } as const
+  if (name.includes('bath')) return <Bath {...props} />
+  if (name.includes('bed')) return <BedDouble {...props} />
+  if (name.includes('kitchen')) return <CookingPot {...props} />
+  if (name.includes('living') || name.includes('sleep')) return <Sofa {...props} />
+  return <LayoutGrid {...props} />
 }
 
 function SceneSkeleton() {

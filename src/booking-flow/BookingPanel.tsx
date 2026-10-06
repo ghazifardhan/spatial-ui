@@ -13,6 +13,7 @@
  */
 
 import { useState, type FormEvent } from 'react'
+import { ArrowRight, Check } from 'lucide-react'
 import { nights as nightsInRange, type Apartment, type DateRange } from '../domain'
 import type { BookingRepository } from '../repository'
 import { useAvailability } from './use-availability'
@@ -72,11 +73,15 @@ export function BookingPanel({ apartment, bookingRepository }: BookingPanelProps
     return (
       <section className={styles.panel} aria-label="Booking confirmation">
         <div className={styles.confirmation}>
-          <span className={styles.successBadge}>✓ Request submitted</span>
+          <span className={styles.successBadge}>
+            <Check size={14} strokeWidth={2.6} aria-hidden /> Request submitted
+          </span>
           <p className={styles.mutedText}>
             <span className={styles.bookingId}>{confirmation.id}</span> ·{' '}
             {confirmation.nights} night{confirmation.nights === 1 ? '' : 's'} (
-            {confirmation.range.start} → {confirmation.range.end})
+            {confirmation.range.start}{' '}
+            <ArrowRight size={12} strokeWidth={2} className={styles.inlineIcon} aria-hidden />{' '}
+            {confirmation.range.end})
           </p>
           <p className={styles.mutedText}>
             We’ll confirm to <strong>{confirmation.email}</strong>. This is a request, not a
