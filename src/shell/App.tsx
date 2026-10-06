@@ -5,17 +5,20 @@
 
 import { BrowserRouter } from 'react-router-dom'
 import { RepositoriesProvider } from './RepositoriesProvider'
+import { ThemeProvider } from './ThemeProvider'
 import { AppRoutes } from './AppRoutes'
 import { ErrorBoundary } from './ErrorBoundary'
 
 export function App() {
   return (
     <ErrorBoundary>
-      <RepositoriesProvider>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </RepositoriesProvider>
+      <ThemeProvider>
+        <RepositoriesProvider>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </RepositoriesProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   )
 }

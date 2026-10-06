@@ -7,6 +7,7 @@
 
 import { NavLink, Outlet } from 'react-router-dom'
 import type { Apartment } from '../domain'
+import { ThemeToggle } from './ThemeToggle'
 import styles from './AppLayout.module.css'
 
 interface AppLayoutProps {
@@ -55,7 +56,10 @@ export function AppLayout({ apartments }: AppLayoutProps) {
           </ul>
         </div>
 
-        <div className={styles.footer}>Explore each unit in 3D, then request your stay.</div>
+        <div className={styles.footer}>
+          <ThemeToggle />
+          <div className={styles.footerNote}>Explore each unit in 3D, then request your stay.</div>
+        </div>
       </nav>
 
       <main className={styles.main}>

@@ -30,8 +30,8 @@ export class ErrorBoundary extends Component<Props, State> {
           style={{
             fontFamily: 'system-ui',
             padding: '2.5rem',
-            color: '#ffb4b4',
-            background: '#1a1216',
+            color: 'var(--color-danger)',
+            background: 'var(--color-bg)',
             minHeight: '100vh',
           }}
         >

@@ -27,12 +27,12 @@
   width: 34px;
   height: 34px;
   border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--color-accent), #8f7bf7);
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-gradient-end));
   display: grid;
   place-items: center;
   font-weight: 800;
   font-size: 0.95rem;
-  color: #fff;
+  color: var(--color-on-accent);
   box-shadow: var(--shadow-sm);
   flex-shrink: 0;
 }
@@ -159,6 +159,12 @@
 .footer {
   padding: var(--space-3) var(--space-4) var(--space-4);
   border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.footerNote {
   font-size: 0.72rem;
   color: var(--color-text-faint);
 }

@@ -16,6 +16,7 @@ import { Viewer, type ViewerHandle } from '../viewer'
 import { ScenePicker } from '../interactions'
 import { CeilingToggle } from './CeilingToggle'
 import { NavigationControls } from './NavigationControls'
+import { useViewerBackground } from './use-viewer-background'
 
 export interface ApartmentSceneProps {
   apartment: Apartment
@@ -36,6 +37,9 @@ export default function ApartmentScene({
 }: ApartmentSceneProps) {
   const localRef = useRef<ViewerHandle>(null)
   const scene = useMemo(() => buildScene(apartment.schema), [apartment])
+  // Canvas backdrop follows the shell theme via the `--viewer-bg` token (ADR 0053). The viewer
+  // stays theme-agnostic and receives a plain colour, exactly as its `background` prop documents.
+  const viewerBackground = useViewerBackground()
 
   // The navigation controls need the viewer handle even when the caller didn't pass one, so we keep
   // our own ref and also mirror it into the optional outward `viewerRef` (ADR 0021).
@@ -50,6 +54,7 @@ export default function ApartmentScene({
     <Viewer
       ref={setViewerRef}
       scene={scene}
+      background={viewerBackground}
       overlay={
         <>
           <CeilingToggle show={showCeiling} onChange={onToggleCeiling} />

@@ -1,4 +1,9 @@
-/* Design tokens (ADR 0049, 0050). Single source of truth for the shell's look. */
+/* Design tokens (ADR 0049, 0050, 0053). Single source of truth for the shell's look.
+ *
+ * Theme model (ADR 0053): the DARK theme is the default, expressed on `:root`. The LIGHT theme is
+ * expressed as an override block scoped to `[data-theme="light"]` (set on <html>). Components never
+ * reference literal colours — only these custom properties — so switching the attribute re-themes
+ * the whole shell. `data-theme="dark"` is also valid and simply matches the `:root` defaults. */
 
 :root {
   /* Surfaces — layered dark elevation */
@@ -20,11 +25,29 @@
   --color-accent-strong: #7aa2f7;
   --color-accent-soft: rgba(91, 141, 239, 0.14);
   --color-accent-ring: rgba(122, 162, 247, 0.55);
+  /* Second stop of the brand-mark gradient. */
+  --color-accent-gradient-end: #8f7bf7;
+  /* Text/icon colour placed on top of an accent fill. */
+  --color-on-accent: #fff;
 
   /* Semantic */
   --color-success: #57c39a;
+  --color-success-soft: rgba(87, 195, 154, 0.12);
+  --color-success-border: rgba(87, 195, 154, 0.3);
   --color-danger: #ff8f8f;
   --color-danger-bg: rgba(255, 90, 90, 0.1);
+  --color-danger-border: rgba(255, 90, 90, 0.25);
+
+  /* Translucent hairlines for glass surfaces floating over the canvas. */
+  --color-glass-border: rgba(255, 255, 255, 0.14);
+  --color-glass-border-strong: rgba(255, 255, 255, 0.16);
+  --color-glass-border-faint: rgba(255, 255, 255, 0.1);
+
+  /* Scrollbar */
+  --color-scrollbar-thumb-hover: #454d5e;
+
+  /* 3D viewport background behind the canvas (ADR 0024, 0053). */
+  --viewer-bg: #eef1f4;
 
   /* Space scale (4px base) */
   --space-1: 4px;
@@ -56,6 +79,55 @@
   --sidebar-right-width: 340px;
 }
 
+/* Light theme (ADR 0053). Re-declares only the colour-bearing tokens; spacing, radius, motion and
+   type are theme-agnostic and are inherited from `:root`. */
+[data-theme='light'] {
+  /* Surfaces — layered light elevation */
+  --color-bg: #f5f6f8;
+  --color-surface-1: #ffffff;
+  --color-surface-2: #ffffff;
+  --color-surface-3: #eef0f4;
+  --color-surface-glass: rgba(255, 255, 255, 0.78);
+  --color-border: #e2e5ea;
+  --color-border-strong: #cdd2da;
+
+  /* Text */
+  --color-text: #14161c;
+  --color-text-muted: #545b6a;
+  --color-text-faint: #7c8494;
+
+  /* Accent (calm blue, adjusted for contrast on light surfaces) */
+  --color-accent: #3568d6;
+  --color-accent-strong: #2a55bd;
+  --color-accent-soft: rgba(53, 104, 214, 0.1);
+  --color-accent-ring: rgba(53, 104, 214, 0.5);
+  --color-accent-gradient-end: #6f5cf0;
+  --color-on-accent: #fff;
+
+  /* Semantic */
+  --color-success: #1f8f66;
+  --color-success-soft: rgba(31, 143, 102, 0.1);
+  --color-success-border: rgba(31, 143, 102, 0.3);
+  --color-danger: #c0342f;
+  --color-danger-bg: rgba(200, 60, 55, 0.08);
+  --color-danger-border: rgba(200, 60, 55, 0.25);
+
+  /* Glass hairlines over the canvas — dark hairlines read correctly on light chrome. */
+  --color-glass-border: rgba(20, 22, 28, 0.12);
+  --color-glass-border-strong: rgba(20, 22, 28, 0.16);
+  --color-glass-border-faint: rgba(20, 22, 28, 0.08);
+
+  --color-scrollbar-thumb-hover: #b4bac4;
+
+  /* The bright 3D interior needs a slightly softer backdrop in light mode. */
+  --viewer-bg: #dfe3e9;
+
+  /* Softer elevation for light surfaces. */
+  --shadow-sm: 0 1px 2px rgba(20, 22, 28, 0.08);
+  --shadow-md: 0 6px 20px rgba(20, 22, 28, 0.12);
+  --shadow-lg: 0 16px 44px rgba(20, 22, 28, 0.16);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -73,6 +145,10 @@ body {
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Theme switches cross-fade; motion-safe because the reduced-motion block below disables it. */
+  transition:
+    background var(--transition-base),
+    color var(--transition-base);
 }
 
 /* Consistent focus ring across the app */
@@ -82,7 +158,7 @@ body {
   border-radius: var(--radius-sm);
 }
 
-/* Custom scrollbars for the dark theme */
+/* Custom scrollbars (theme-aware via tokens) */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -97,7 +173,7 @@ body {
   background-clip: padding-box;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #454d5e;
+  background: var(--color-scrollbar-thumb-hover);
   background-clip: padding-box;
 }
 

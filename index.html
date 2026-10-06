@@ -5,6 +5,25 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>spatial-ui</title>
+    <!--
+      Pre-paint theme bootstrap (ADR 0053). Runs before the app bundle so the correct theme
+      attribute is set before the first paint — no flash of the wrong theme. It mirrors the pure
+      resolveInitialTheme() logic in src/shell/theme.ts: an explicit stored choice wins, otherwise
+      the OS preference decides. Kept inline + dependency-free on purpose.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('spatial-ui:theme')
+          if (stored !== 'light' && stored !== 'dark') {
+            stored = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+          }
+          document.documentElement.setAttribute('data-theme', stored)
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark')
+        }
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

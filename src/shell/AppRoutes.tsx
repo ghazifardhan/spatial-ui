@@ -27,7 +27,16 @@ export function AppRoutes() {
 
   if (!apartments) {
     return (
-      <div style={{ display: 'grid', placeItems: 'center', height: '100vh', fontFamily: 'system-ui', color: '#e6e6ea' }}>
+      <div
+        style={{
+          display: 'grid',
+          placeItems: 'center',
+          height: '100vh',
+          fontFamily: 'system-ui',
+          color: 'var(--color-text)',
+          background: 'var(--color-bg)',
+        }}
+      >
         Loading…
       </div>
     )

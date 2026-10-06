@@ -24,7 +24,7 @@ function SceneFallback() {
         display: 'grid',
         placeItems: 'center',
         height: '100%',
-        opacity: 0.6,
+        color: 'var(--color-text-muted)',
         fontFamily: 'system-ui',
       }}
     >

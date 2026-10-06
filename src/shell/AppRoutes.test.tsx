@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { RepositoriesProvider } from './RepositoriesProvider'
+import { ThemeProvider } from './ThemeProvider'
 import { useRepositories } from './use-repositories'
 import { AppRoutes } from './AppRoutes'
 import { APARTMENT_FIXTURES } from '../repository'
@@ -47,11 +48,13 @@ describe('RepositoriesProvider / useRepositories', () => {
 describe('AppRoutes', () => {
   it('renders the apartment list on the index route', async () => {
     render(
-      <RepositoriesProvider value={fakeRepos()}>
-        <MemoryRouter initialEntries={['/']}>
-          <AppRoutes />
-        </MemoryRouter>
-      </RepositoriesProvider>,
+      <ThemeProvider>
+        <RepositoriesProvider value={fakeRepos()}>
+          <MemoryRouter initialEntries={['/']}>
+            <AppRoutes />
+          </MemoryRouter>
+        </RepositoriesProvider>
+      </ThemeProvider>,
     )
     // The name appears both in the sidebar nav and the list card, so expect multiple.
     expect(await screen.findAllByText(/studio/i)).not.toHaveLength(0)
@@ -60,11 +63,13 @@ describe('AppRoutes', () => {
 
   it('shows a not-found message for an unknown apartment id', async () => {
     render(
-      <RepositoriesProvider value={fakeRepos()}>
-        <MemoryRouter initialEntries={['/apartments/does-not-exist']}>
-          <AppRoutes />
-        </MemoryRouter>
-      </RepositoriesProvider>,
+      <ThemeProvider>
+        <RepositoriesProvider value={fakeRepos()}>
+          <MemoryRouter initialEntries={['/apartments/does-not-exist']}>
+            <AppRoutes />
+          </MemoryRouter>
+        </RepositoriesProvider>
+      </ThemeProvider>,
     )
     expect(await screen.findByText(/apartment not found/i)).toBeInTheDocument()
   })

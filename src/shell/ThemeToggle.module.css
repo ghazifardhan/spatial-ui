@@ -1,0 +1,74 @@
+/* Theme toggle in the left nav footer (ADR 0053). Token-only styling, like the rest of the shell. */
+
+.toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.5rem 0.65rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: inherit;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.toggle:hover {
+  background: var(--color-surface-3);
+  border-color: var(--color-border-strong);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+}
+
+.label {
+  flex: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.track {
+  width: 34px;
+  height: 18px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-3);
+  border: 1px solid var(--color-border-strong);
+  position: relative;
+  flex-shrink: 0;
+  transition: background var(--transition-base);
+}
+
+.trackOn {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-on-accent);
+  box-shadow: var(--shadow-sm);
+  transition: left var(--transition-base);
+}
+
+.knobOn {
+  left: 18px;
+}
