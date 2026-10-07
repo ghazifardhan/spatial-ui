@@ -1,0 +1,38 @@
+/* Room tooltip overlay (ADR 0055). Anchored at the pointer inside the viewer's passthrough overlay
+   layer; it must not intercept pointer events, or it would block the canvas picking underneath. */
+
+.tooltip {
+  position: fixed;
+  pointer-events: none;
+  z-index: 20;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-glass-border);
+  background: var(--color-surface-glass);
+  color: var(--color-text);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-md);
+  /* Slight entry motion, suppressed under prefers-reduced-motion (ADR 0049). */
+  animation: tooltipIn var(--transition-fast) ease-out;
+}
+
+@keyframes tooltipIn {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip {
+    animation: none;
+  }
+}

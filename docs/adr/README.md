@@ -81,3 +81,4 @@ What becomes easier, harder, or constrained as a result?
 | [0052](0052-in-viewer-navigation-ui.md) | In-viewer navigation UI: imperative zoom/pan/orbit controls + how-to legend | Accepted |
 | [0053](0053-light-dark-theme-toggle.md) | Light/dark theme toggle: token overrides + persisted, OS-aware default | Accepted |
 | [0054](0054-ui-iconography-lucide.md) | UI iconography: lucide-react instead of emoji glyphs | Accepted |
+| [0055](0055-room-hover-tooltip.md) | Hovered-room tooltip in the 3D view | Accepted |
